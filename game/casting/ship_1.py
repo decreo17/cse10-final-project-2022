@@ -1,4 +1,3 @@
-from asteroids import FlyingObject
 from constants import *
 import arcade
 from game.casting.flyingObject import FlyingObject
