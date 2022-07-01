@@ -31,11 +31,14 @@ class GameInplay(arcade.View):
         self.score = 0
         self.bullets = []
         self.asteroids = []
+        self.aliens = []
         self.background = arcade.load_texture(BG_IMAGE)
         #create asteroids
         for i in range(5):
             asteroid = LargeAsteroids()
-            self.asteroids.append(asteroid)        
+            self.asteroids.append(asteroid)    
+   
+    
 
         # my add on: Load sounds. Sounds from kenney.nl
         self.fire_sound = arcade.sound.load_sound(":resources:sounds/laser1.wav") 

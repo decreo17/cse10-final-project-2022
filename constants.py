@@ -50,3 +50,6 @@ SMALL_ROCK_RADIUS = 2
 SMALL_ROCK_IMAGE = "assets/images/meteorGrey_small1.png"
 
 # DIALOGS
+
+#Alien
+Alien_IMG = "assets/images/__alien_enemy_4_purple_green_flying_000.png"
