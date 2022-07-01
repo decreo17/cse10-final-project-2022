@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------- 
 # GENERAL GAME CONSTANTS
 # -------------------------------------------------------------------------------------------------- 
-
+import random
 # KEYS
 
 # SCREEN
@@ -9,7 +9,18 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 CENTER_X = SCREEN_WIDTH / 2
 CENTER_Y = SCREEN_HEIGHT / 2
+#Background
 BG_IMAGE = "assets/images/bgu.jpg"
+BG_IMAGE1 = "assets/images/Retro-Space-2-scaled.jpg"
+BG_IMAGE2 = "assets/images/wp8368533.jpg"
+BG_IMAGE3 = "assets/images/51oGSP+OBnL._AC_.jpg"
+BG_IMAGE4 = "assets/images/bg_image4.jpg"
+
+BG_IMAGES = [BG_IMAGE, BG_IMAGE1, BG_IMAGE2, BG_IMAGE3, BG_IMAGE4]
+
+background = random.choice(BG_IMAGES)
+
+#Game Over
 GAME_OVER_IMAGE = "assets/images/game_over.png"
 WIN_IMAGE = "assets/images/congrats.png"
 
@@ -32,6 +43,7 @@ SHIP_THRUST_AMOUNT = 0.25
 SHIP_RADIUS = 30
 SHIP_IMAGE = "assets/images/playerShip1_orange.png"
 SHIP_1_IMAGE = "assets/images/playerShip1_orange.png"
+SHIP_2 = "assets/images/favpng_starship-enterprise-uss-enterprise-ncc-1701-star-trek_25.png"
 
 # ROCKS
 INITIAL_ROCK_COUNT = 5

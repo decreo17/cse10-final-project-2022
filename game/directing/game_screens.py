@@ -32,7 +32,7 @@ class GameInplay(arcade.View):
         self.bullets = []
         self.asteroids = []
         self.aliens = []
-        self.background = arcade.load_texture(BG_IMAGE)
+        self.background = arcade.load_texture(background)
         #create asteroids
         for i in range(5):
             asteroid = LargeAsteroids()
