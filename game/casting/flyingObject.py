@@ -14,7 +14,7 @@ class FlyingObject(ABC):
         self.radius = 0.0
         self.angle = 0 #facing 
 
-        self.img = "assets/images/bgu.jpg"
+        self.img = "assets/images/background_images/bgu.jpg"
         self.texture = arcade.load_texture(self.img)
         self.width = self.texture.width
         self.height = self.texture.height
