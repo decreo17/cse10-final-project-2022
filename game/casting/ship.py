@@ -16,7 +16,7 @@ class Ship(FlyingObject):
 
 
     def draw(self):
-        self.img = SHIP_IMAGE
+        self.img = SHIP_1_IMAGE
         self.texture = arcade.load_texture(self.img)
         self.width = self.texture.width // 2
         self.height = self.texture.height  // 2
