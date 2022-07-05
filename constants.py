@@ -10,11 +10,11 @@ SCREEN_HEIGHT = 600
 CENTER_X = SCREEN_WIDTH / 2
 CENTER_Y = SCREEN_HEIGHT / 2
 #Background
-BG_IMAGE = "assets/images/bgu.jpg"
-BG_IMAGE1 = "assets/images/Retro-Space-2-scaled.jpg"
-BG_IMAGE2 = "assets/images/wp8368533.jpg"
-BG_IMAGE3 = "assets/images/51oGSP+OBnL._AC_.jpg"
-BG_IMAGE4 = "assets/images/bg_image4.jpg"
+BG_IMAGE = "assets/images/background_images/bgu.jpg"
+BG_IMAGE1 = "assets/images/background_images/retro_background.jpg"
+BG_IMAGE2 = "assets/images/background_images/wp8368533.jpg"
+BG_IMAGE3 = "assets/images/background_images/51oGSP+OBnL._AC_.jpg"
+BG_IMAGE4 = "assets/images/background_images/bg_image4.jpg"
 
 BG_IMAGES = [BG_IMAGE, BG_IMAGE1, BG_IMAGE2, BG_IMAGE3, BG_IMAGE4]
 
