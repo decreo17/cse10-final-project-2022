@@ -2,6 +2,7 @@ import arcade
 from abc import ABC, abstractmethod
 from game.shared.point import Point
 from game.shared.velocity import Velocity
+import constants
 
 class FlyingObject(ABC):
     """
@@ -14,7 +15,7 @@ class FlyingObject(ABC):
         self.radius = 0.0
         self.angle = 0 #facing 
 
-        self.img = "assets/images/background_images/bgu.jpg"
+        self.img = constants.BG_IMAGE
         self.texture = arcade.load_texture(self.img)
         self.width = self.texture.width
         self.height = self.texture.height
