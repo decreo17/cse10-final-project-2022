@@ -10,7 +10,7 @@ class Ship(FlyingObject):
         super().__init__()
         self.angle = 0.00
         self.radius = SHIP_RADIUS
-        self.center.x = CENTER_X
+        self.center.x = LEFT_BOARDER + SHIP_RADIUS
         self.center.y = CENTER_Y
         self.life = MAXIMUM_LIVES
 
@@ -18,8 +18,8 @@ class Ship(FlyingObject):
     def draw(self):
         self.img = SHIP_IMAGE
         self.texture = arcade.load_texture(self.img)
-        self.width = self.texture.width
-        self.height = self.texture.height  
+        self.width = self.texture.width // 2
+        self.height = self.texture.height  // 2
         super().draw() 
     
     def advance(self):

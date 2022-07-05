@@ -12,14 +12,16 @@ CENTER_Y = SCREEN_HEIGHT / 2
 BG_IMAGE = "assets/images/bgu.jpg"
 GAME_OVER_IMAGE = "assets/images/game_over.png"
 WIN_IMAGE = "assets/images/congrats.png"
+LEFT_BOARDER = 0
+RIGHT_BOARDER = SCREEN_WIDTH
 
 # STATS
 STATS_GROUP = "stats"
 DEFAULT_LIVES = 3
-MAXIMUM_LIVES = 5
+MAXIMUM_LIVES = DEFAULT_LIVES
 
 # BULLETS
-BULLET_RADIUS = 30
+BULLET_RADIUS = 20
 BULLET_SPEED = 10
 BULLET_LIFE = 60
 BULLET_IMAGE = "assets/images/laserBlue01.png"
@@ -27,7 +29,7 @@ BULLET_IMAGE = "assets/images/laserBlue01.png"
 # SHIPS
 SHIP_TURN_AMOUNT = 3
 SHIP_THRUST_AMOUNT = 0.25
-SHIP_RADIUS = 30
+SHIP_RADIUS = 20
 SHIP_IMAGE = "assets/images/playerShip1_orange.png"
 SHIP_1_IMAGE = "assets/images/playerShip1_orange.png"
 

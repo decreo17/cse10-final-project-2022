@@ -9,7 +9,7 @@ def main():
     # Creates the game and starts it going
     window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT)
     director = Director(window)
-    director.start_game( )
+    director.start_game()
 
 if __name__ == "__main__":
     main()

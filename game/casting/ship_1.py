@@ -9,11 +9,11 @@ class Ship1(Ship):
     """
     def __init__(self):
         super().__init__()
-
+        self.center.x = RIGHT_BOARDER - SHIP_RADIUS
 
     def draw(self):
         self.img = SHIP_1_IMAGE
         self.texture = arcade.load_texture(self.img)
-        self.width = self.texture.width
-        self.height = self.texture.height  
+        self.width = self.texture.width // 2
+        self.height = self.texture.height  // 2
         super().draw()

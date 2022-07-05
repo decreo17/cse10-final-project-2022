@@ -3,7 +3,10 @@ import math
 from constants import *
 from game.casting.large_asteroids import LargeAsteroids
 from game.casting.ship import Ship
+from game.casting.ship_1 import Ship1
 from game.casting.bullet import Bullet
+from game.services.ship_keys import ShipKeys
+from game.services.ship1_keys import Ship1Keys
 
 class GameInplay(arcade.View):
     """
@@ -26,10 +29,12 @@ class GameInplay(arcade.View):
 
         self.held_keys = set()
 
-        # TODO: declare anything here you need the game class to track
+        # declare anything here you need the game class to track
         self.ship = Ship()
+        self.ship1 = Ship1()
         self.score = 0
         self.bullets = []
+        self.bullets1 = []
         self.asteroids = []
         self.background = arcade.load_texture(BG_IMAGE)
         #create asteroids
@@ -51,10 +56,13 @@ class GameInplay(arcade.View):
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
 
-        # TODO: draw each object
+        # draw each object
         #draw bullets
         for bullet in self.bullets:
-            bullet.draw()        
+            bullet.draw()
+
+        for bullet1 in self.bullets1:
+            bullet1.draw()        
 
         #draw asteroids
         for asteroid in self.asteroids:
@@ -69,33 +77,50 @@ class GameInplay(arcade.View):
             #draw the mini ships representing the ship life
             self.draw_ship_life()
 
+        if self.ship1.alive:
+            #draw the ship
+            self.ship1.draw()
+
         #if the ship has no more lives it will die
         if self.ship.life <= 0:
             self.ship.alive = False
+        
+        #if the ship has no more lives it will die
+        if self.ship1.life <= 0:
+            self.ship1.alive = False
 
-        #if all the asteroids were cleared show congratulations if the ship died show game over
-        if len(self.asteroids) == 0 or self.ship.alive == False:
+        # Determine if the game is over
+        if self.ship.alive == False or self.ship1.alive == False :
             view = GameOver() #create and instance of gameover class
             view.score = self.score #copy the score to the gameoverclass
             view.asteroids = self.asteroids #copy the asteroids to the gameoverclass
             self.window.show_view(view) #show the gameoverview
-            self.ship.alive = False #hide the ship
+            #self.ship.alive = False #hide the ship
+            #self.ship1.alive = False #hide the ship
   
     def update(self, delta_time):
         """
         Update each object in the game.
         :param delta_time: tells us how much time has actually elapsed
         """
-        self.check_keys()
+        ShipKeys(self.ship, self.held_keys).check_keys()
+        Ship1Keys(self.ship1, self.held_keys).check_keys()
         self.check_collisions()
 
-        # TODO: Tell everything to advance or move forward one step in time
+        # Tell everything to advance or move forward one step in time
         self.ship.advance()
         self.ship.is_off_screen(SCREEN_WIDTH, SCREEN_HEIGHT)
+
+        self.ship1.advance()
+        self.ship1.is_off_screen(SCREEN_WIDTH, SCREEN_HEIGHT)
         #move the bullets
         for bullet in self.bullets:
             bullet.advance()
-            bullet.is_off_screen(SCREEN_WIDTH,SCREEN_HEIGHT)   
+            bullet.is_off_screen(SCREEN_WIDTH,SCREEN_HEIGHT)
+
+        for bullet1 in self.bullets1:
+            bullet1.advance()
+            bullet1.is_off_screen(SCREEN_WIDTH,SCREEN_HEIGHT)   
 
         #move the asterois
         for asteroid in self.asteroids:
@@ -106,33 +131,8 @@ class GameInplay(arcade.View):
         if self.ship.alive:   
             self.score += delta_time
 
-        # TODO: Check for collisions
-    def check_collisions(self):
-        """
-        Checks to see if bullets have hit asteroids.
-        Updates scores and removes dead items.
-        :return:
-        """
-
-        # NOTE: This assumes you named your asteroids list "asteroids"
-        #on progress this should bounce the asteroid when it hit ship and other asteroid
-        #ship and asteroid
-        for asteroid in self.asteroids:
-
-            # Make sure they are both alive before checking for a collision
-            if self.ship.alive and asteroid.alive:
-                    too_close = self.ship.radius + asteroid.radius
-
-                    if (abs(self.ship.center.x - asteroid.center.x) < too_close and
-                                abs(self.ship.center.y - asteroid.center.y) < too_close):
-                        
-                            asteroid.alive = False
-                            self.ship.life -= 1
-                            self.ship.alpha = 1
-                            self.score += asteroid.penalty #add the penalty score
-                            self.asteroids += asteroid.hit() #add the new asteroids to current list
-                            arcade.play_sound(self.hit_sound) #play the sound
-                            
+        # Check for collisions
+    def check_asteroid_to_asteriod_collisions(self):
         #asteroid to asteroid
         for asteroid1 in self.asteroids:
             for asteroid in self.asteroids:
@@ -155,8 +155,39 @@ class GameInplay(arcade.View):
                             
                             if asteroid.center.y < asteroid1.center.y and asteroid.velocity.dy < asteroid1.velocity.dy:
                                 asteroid.bounce_horizontal()
-    
-        #bullets and asteroid
+
+    def check_ship_to_asteriod_collisions(self):
+        for asteroid in self.asteroids:
+            # Make sure they are both alive before checking for a collision
+            if self.ship.alive and asteroid.alive:
+                    too_close = self.ship.radius + asteroid.radius
+
+                    if (abs(self.ship.center.x - asteroid.center.x) < too_close and
+                                abs(self.ship.center.y - asteroid.center.y) < too_close):
+                        
+                            asteroid.alive = False
+                            self.ship.life -= 1
+                            self.ship.alpha = 1
+                            self.score += asteroid.penalty #add the penalty score
+                            self.asteroids += asteroid.hit() #add the new asteroids to current list
+                            arcade.play_sound(self.hit_sound) #play the sound
+        
+        for asteroid in self.asteroids:
+            # Make sure they are both alive before checking for a collision
+            if self.ship1.alive and asteroid.alive:
+                    too_close = self.ship1.radius + asteroid.radius
+
+                    if (abs(self.ship1.center.x - asteroid.center.x) < too_close and
+                                abs(self.ship1.center.y - asteroid.center.y) < too_close):
+                        
+                            asteroid.alive = False
+                            self.ship1.life -= 1
+                            self.ship1.alpha = 1
+                            self.score += asteroid.penalty #add the penalty score
+                            self.asteroids += asteroid.hit() #add the new asteroids to current list
+                            arcade.play_sound(self.hit_sound) #play the sound
+
+    def check_bullet_to_asteriod_collisions(self):
         for bullet in self.bullets:
             for asteroid in self.asteroids:
 
@@ -171,10 +202,71 @@ class GameInplay(arcade.View):
                         asteroid.alive = False #kill the asteroid
                         self.asteroids += asteroid.hit() #add the new asteroids to current list
                         arcade.play_sound(self.hit_sound) #play sound
+        
+        for bullet1 in self.bullets1:
+            for asteroid in self.asteroids:
 
-                        # We will wait to remove the dead objects until after we
-                        # finish going through the list
+                # Make sure they are both alive before checking for a collision
+                if bullet1.alive and asteroid.alive:
+                    too_close = bullet1.radius + asteroid.radius
 
+                    if (abs(bullet1.center.x - asteroid.center.x) < too_close and
+                                abs(bullet1.center.y - asteroid.center.y) < too_close):
+                        # its a hit!
+                        bullet1.alive = False #kill the bullet
+                        asteroid.alive = False #kill the asteroid
+                        self.asteroids += asteroid.hit() #add the new asteroids to current list
+                        arcade.play_sound(self.hit_sound) #play sound
+
+    def check_bullet_to_ship_collisions(self):
+        for bullet in self.bullets:
+            # Make sure they are both alive before checking for a collision
+            if self.ship1.alive and bullet.alive:
+                    too_close = self.ship1.radius + bullet.radius
+
+                    if (abs(self.ship1.center.x - bullet.center.x) < too_close and
+                                abs(self.ship1.center.y - bullet.center.y) < too_close):
+                        
+                            bullet.alive = False
+                            self.ship1.life -= 1
+                            self.ship1.alpha = 1
+                            arcade.play_sound(self.hit_sound) #play the sound
+    
+        for bullet1 in self.bullets1:
+            # Make sure they are both alive before checking for a collision
+            if self.ship.alive and bullet1.alive:
+                    too_close = self.ship.radius + bullet1.radius
+
+                    if (abs(self.ship.center.x - bullet1.center.x) < too_close and
+                                abs(self.ship.center.y - bullet1.center.y) < too_close):
+                        
+                            bullet1.alive = False
+                            self.ship.life -= 1
+                            self.ship.alpha = 1
+                            arcade.play_sound(self.hit_sound) #play the sound
+
+    def check_collisions(self):
+        """
+        Checks to see if bullets have hit asteroids.
+        Updates scores and removes dead items.
+        :return:
+        """
+        # on progress this should bounce the asteroid when it hit ship and other asteroid
+        
+        # ship and asteroid
+        self.check_ship_to_asteriod_collisions()
+        
+        # asteriod to asteriod
+        self.check_asteroid_to_asteriod_collisions()
+        
+        # bullets and asteroid
+        self.check_bullet_to_asteriod_collisions()
+
+        # bullet to ship1
+        self.check_bullet_to_ship_collisions()
+        
+        # We will wait to remove the dead objects until after we
+        # finish going through the list
         # Now, check for anything that is dead, and remove it
         self.cleanup_zombies()
 
@@ -187,64 +279,15 @@ class GameInplay(arcade.View):
         for bullet in self.bullets:
             if not bullet.alive:
                 self.bullets.remove(bullet)
+        
+        for bullet1 in self.bullets1:
+            if not bullet1.alive:
+                self.bullets1.remove(bullet1)
 
         #clean up asteroids
         for asteroid in self.asteroids:
             if not asteroid.alive:
                 self.asteroids.remove(asteroid)
-
-    def check_keys(self):
-        """
-        This function checks for keys that are being held down.
-        You will need to put your own method calls in here.
-        """
-        if arcade.key.LEFT in self.held_keys:
-            self.ship.angle += SHIP_TURN_AMOUNT
-
-        if arcade.key.RIGHT in self.held_keys:
-            self.ship.angle -= SHIP_TURN_AMOUNT
-
-
-        if arcade.key.UP in self.held_keys:
-            #move the ship
-            self.ship.velocity.dx += math.cos(math.radians(self.ship.angle + 90)) * SHIP_THRUST_AMOUNT
-            self.ship.velocity.dy += math.sin(math.radians(self.ship.angle + 90)) * SHIP_THRUST_AMOUNT
-
-            #limit the speed of the ship
-            if self.ship.velocity.dx > 10:
-                self.ship.velocity.dx = 10
-            
-            if self.ship.velocity.dx < -10:
-                self.ship.velocity.dx = -10
-            
-            if self.ship.velocity.dy > 10:
-                self.ship.velocity.dy = 10
-            
-            if self.ship.velocity.dy < -10:
-                self.ship.velocity.dy = -10
-
-        
-        if arcade.key.DOWN in self.held_keys:
-            #move the ship
-            self.ship.velocity.dx -= math.cos(math.radians(self.ship.angle + 90)) * SHIP_THRUST_AMOUNT
-            self.ship.velocity.dy -= math.sin(math.radians(self.ship.angle + 90)) * SHIP_THRUST_AMOUNT
-
-            #limit the speed of the ship
-            if self.ship.velocity.dx > 10:
-                self.ship.velocity.dx = 10
-            
-            if self.ship.velocity.dx < -10:
-                self.ship.velocity.dx = -10
-            
-            if self.ship.velocity.dy > 10:
-                self.ship.velocity.dy = 10
-            
-            if self.ship.velocity.dy < -10:
-                self.ship.velocity.dy = -10
-
-        # Machine gun mode...
-        #if arcade.key.SPACE in self.held_keys:
-        #    pass
 
     def on_key_press(self, key: int, modifiers: int):
         """
@@ -255,7 +298,7 @@ class GameInplay(arcade.View):
             self.held_keys.add(key)
 
             if key == arcade.key.SPACE:
-                # TODO: Fire the bullet here!
+                # Fire the bullet here!
                 # Fire!
                 ship = self.ship
 
@@ -265,6 +308,21 @@ class GameInplay(arcade.View):
                 #my addtional sound
                 arcade.play_sound(self.fire_sound) #playsound
                 self.bullets.append(bullet) #add the new bullet to the list
+        
+        if self.ship1.alive:
+            self.held_keys.add(key)
+
+            if key == arcade.key.ENTER:
+                # Fire the bullet here!
+                # Fire!
+                ship1 = self.ship1
+
+                #get the instance of bullet then align it with the ship's location and angle
+                bullet1 = Bullet()
+                bullet1.fire(ship1)
+                #my addtional sound
+                arcade.play_sound(self.fire_sound) #playsound
+                self.bullets1.append(bullet1) #add the new bullet to the list
 
     def on_key_release(self, key: int, modifiers: int):
         """
@@ -275,6 +333,8 @@ class GameInplay(arcade.View):
             #slow down the ship but will still  looks like floating
             self.ship.velocity.dx = math.cos(math.radians(self.ship.angle + 90)) * SHIP_THRUST_AMOUNT
             self.ship.velocity.dy = math.sin(math.radians(self.ship.angle + 90)) * SHIP_THRUST_AMOUNT
+            self.ship1.velocity.dx = math.cos(math.radians(self.ship1.angle + 90)) * SHIP_THRUST_AMOUNT
+            self.ship1.velocity.dy = math.sin(math.radians(self.ship1.angle + 90)) * SHIP_THRUST_AMOUNT
 
     def draw_score(self):
         """
@@ -324,6 +384,15 @@ class GameOver(arcade.View):
             self.draw_game_over()
         else:
             self.draw_congratulations()
+
+    def on_key_press(self, key: int, modifiers: int):
+        """
+        If the user presses the space bar, re-start the game.
+        """
+
+        if key == arcade.key.SPACE:
+            game_view = GameInplay()
+            self.window.show_view(game_view)
 
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """ If the user presses the mouse button, re-start the game. """
