@@ -16,7 +16,8 @@ class LargeAsteroids(Asteroids):
         self.velocity.dy = random.uniform(-BIG_ROCK_SPEED,BIG_ROCK_SPEED)
         self.rotation = BIG_ROCK_SPIN
         self.radius = BIG_ROCK_RADIUS
-        self.penalty = 10
+        # self.penalty = 10
+        self.penalty = 6
         
     def draw(self):
         self.img = BIG_ROCK_IMAGE

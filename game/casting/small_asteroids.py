@@ -9,7 +9,8 @@ class SmallAsteroids(Asteroids):
         self.radius = SMALL_ROCK_RADIUS
         self.center.x = asteroid_center.x
         self.center.y = asteroid_center.y
-        self.penalty = 3
+        # self.penalty = 3
+        self.penalty = 1
   
     def draw(self):
         self.img = SMALL_ROCK_IMAGE
