@@ -2,7 +2,8 @@ import arcade
 from abc import ABC, abstractmethod
 from game.shared.point import Point
 from game.shared.velocity import Velocity
-import constants
+from constants import *
+import os
 
 class FlyingObject(ABC):
     """
@@ -15,7 +16,7 @@ class FlyingObject(ABC):
         self.radius = 0.0
         self.angle = 0 #facing 
 
-        self.img = constants.BG_IMAGE
+        self.img = BG_IMAGE
         self.texture = arcade.load_texture(self.img)
         self.width = self.texture.width
         self.height = self.texture.height
@@ -24,7 +25,7 @@ class FlyingObject(ABC):
     @abstractmethod
     def draw(self):
         arcade.draw_texture_rectangle(self.center.x, self.center.y, self.width, 
-                self.height, self.texture, self.angle, self.alpha) 
+                self.height, self.texture, self.angle, self.alpha)
   
     def advance(self):
 
