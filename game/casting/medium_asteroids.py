@@ -10,7 +10,8 @@ class MediumAsteroids(Asteroids):
         self.radius = MEDIUM_ROCK_RADIUS
         self.center.x = asteroid_center.x
         self.center.y = asteroid_center.y
-        self.penalty = 6  
+        # self.penalty = 6  
+        self.penalty = 3
         
     def draw(self):    
         self.img = MEDIUM_ROCK_IAMGE

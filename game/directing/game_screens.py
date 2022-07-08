@@ -83,6 +83,8 @@ class GameInplay(arcade.View):
         if self.ship1.alive:
             #draw the ship
             self.ship1.draw()
+            #draw the mini ships representing the ship life
+            self.draw_ship_life1()
 
         #if the ship has no more lives it will die
         if self.ship.life <= 0:
@@ -364,6 +366,23 @@ class GameInplay(arcade.View):
             arcade.draw_texture_rectangle(x, y, width, 
                     height, texture, angle, alpha)
             x += width #add the new mini ship beside the last ship created
+
+    def draw_ship_life1(self):
+        """
+        Draw the mini ships that represent the lives of the ship
+        """
+        x = SCREEN_WIDTH - 70 #position it to the left
+        y = SCREEN_HEIGHT - 30 #position this to the top - 30
+        for i in range(self.ship1.life):
+            img = SHIP_IMAGE
+            texture = arcade.load_texture(img)
+            width = texture.width // 4 #reduce the size
+            height = texture.height // 4 #reduce the size
+            angle = 0 
+            alpha = 255
+            arcade.draw_texture_rectangle(x, y, width, 
+                    height, texture, angle, alpha)
+            x += width #add the new mini ship beside the last ship created        
 
 class GameOver(arcade.View):
     """ View to show when game is over """
