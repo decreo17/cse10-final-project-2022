@@ -21,6 +21,7 @@ class FlyingObject(ABC):
         self.width = self.texture.width
         self.height = self.texture.height
         self.alpha = 0
+        self.asteroid_life_points = 1
     
     @abstractmethod
     def draw(self):

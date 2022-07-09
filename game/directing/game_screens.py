@@ -2,6 +2,7 @@ import arcade
 import math
 from constants import *
 from game.casting.large_asteroids import LargeAsteroids
+from game.casting.mega_asteroid import MegaAsteroid
 from game.casting.ship import Ship
 from game.casting.ship_1 import Ship1
 from game.casting.bullet import Bullet
@@ -39,8 +40,10 @@ class GameInplay(arcade.View):
         self.aliens = []
         self.background = arcade.load_texture(background)
         #create asteroids
-        for i in range(5):
-            asteroid = LargeAsteroids()
+        for i in range(1):
+            asteroid = MegaAsteroid()
+            
+            # asteroid = LargeAsteroids()
             self.asteroids.append(asteroid)    
    
     
@@ -153,13 +156,15 @@ class GameInplay(arcade.View):
                                 asteroid.bounce_horizontal()
                             
                             if asteroid.center.x < asteroid1.center.x and asteroid.velocity.dx < asteroid1.velocity.dx:
-                                asteroid.bounce_horizontal()
+                                asteroid.bounce_vertical()
                             
                             if asteroid.center.y > asteroid1.center.y and asteroid.velocity.dy > asteroid1.velocity.dy:
                                 asteroid.bounce_horizontal()
                             
                             if asteroid.center.y < asteroid1.center.y and asteroid.velocity.dy < asteroid1.velocity.dy:
-                                asteroid.bounce_horizontal()
+                                asteroid.bounce_vertical()
+                                
+                                
 
     def check_ship_to_asteriod_collisions(self):
         for asteroid in self.asteroids:
@@ -204,9 +209,11 @@ class GameInplay(arcade.View):
                                 abs(bullet.center.y - asteroid.center.y) < too_close):
                         # its a hit!
                         bullet.alive = False #kill the bullet
-                        asteroid.alive = False #kill the asteroid
-                        self.asteroids += asteroid.hit() #add the new asteroids to current list
-                        arcade.play_sound(self.hit_sound) #play sound
+                        asteroid.asteroid_life_points -=1
+                        if asteroid.asteroid_life_points == 0:
+                            asteroid.alive = False #kill the asteroid
+                            self.asteroids += asteroid.hit() #add the new asteroids to current list
+                            arcade.play_sound(self.hit_sound) #play sound
         
         for bullet1 in self.bullets1:
             for asteroid in self.asteroids:
@@ -219,9 +226,11 @@ class GameInplay(arcade.View):
                                 abs(bullet1.center.y - asteroid.center.y) < too_close):
                         # its a hit!
                         bullet1.alive = False #kill the bullet
-                        asteroid.alive = False #kill the asteroid
-                        self.asteroids += asteroid.hit() #add the new asteroids to current list
-                        arcade.play_sound(self.hit_sound) #play sound
+                        asteroid.asteroid_life_points -=1
+                        if asteroid.asteroid_life_points == 0:
+                            asteroid.alive = False #kill the asteroid
+                            self.asteroids += asteroid.hit() #add the new asteroids to current list
+                            arcade.play_sound(self.hit_sound) #play sound
 
     def check_bullet_to_ship_collisions(self):
         for bullet in self.bullets:
