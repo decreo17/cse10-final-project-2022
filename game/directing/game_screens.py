@@ -141,29 +141,92 @@ class GameInplay(arcade.View):
 
         # Check for collisions
     def check_asteroid_to_asteriod_collisions(self):
-        #asteroid to asteroid
-        for asteroid1 in self.asteroids:
-            for asteroid in self.asteroids:
+       #Compare an Asteroid to the rest of the list of asteroids
+        
+        for i in range (0, len(self.asteroids)):
+            
+            #this is to aid in the comparision not avoid picking the same asteroid in the first comparison
+            for j in range (i+1, len(self.asteroids)):
+                
             # Make sure they are both alive before checking for a collision
             #This will make the asteroid bounce when they hit eachother
-                if asteroid1.alive and asteroid.alive:
-                        too_close = asteroid1.radius + asteroid.radius
-
-                        if (abs(asteroid1.center.x - asteroid.center.x) < too_close and
-                                    abs(asteroid1.center.y - asteroid.center.y) < too_close):        
+                if self.asteroids[i].alive and self.asteroids[j].alive:
                     
-                            if asteroid.center.x > asteroid1.center.x and asteroid.velocity.dx > asteroid1.velocity.dx:
-                                asteroid.bounce_horizontal()
+                    too_close = self.asteroids[i].radius + self.asteroids[j].radius + 20
+                    x1 = self.asteroids[i].center.x
+                    y1 = self.asteroids[i].center.y
+                    x2 = self.asteroids[j].center.x
+                    y2 = self.asteroids[j].center.y
+                    distance = ((x2 - x1)**2 + (y2 - y1)**2) **.5
+                    
+                    
+                    if distance < (too_close ) :
+                        if self.asteroids[i].radius == self.asteroids[j].radius:
+                           
+                            swap1x = self.asteroids[i].center.x 
+                            swap1y = self.asteroids[i].center.y 
                             
-                            if asteroid.center.x < asteroid1.center.x and asteroid.velocity.dx < asteroid1.velocity.dx:
-                                asteroid.bounce_vertical()
+                            self.asteroids[i].center.x = self.asteroids[j].center.x 
+                            self.asteroids[i].center.y = self.asteroids[j].center.y 
+                           
+                            self.asteroids[j].center.x = swap1x 
+                            self.asteroids[j].center.y = swap1y 
                             
-                            if asteroid.center.y > asteroid1.center.y and asteroid.velocity.dy > asteroid1.velocity.dy:
-                                asteroid.bounce_horizontal()
                             
-                            if asteroid.center.y < asteroid1.center.y and asteroid.velocity.dy < asteroid1.velocity.dy:
-                                asteroid.bounce_vertical()
+                        elif self.asteroids[i].radius > self.asteroids[j].radius:
+                            
+                            swap1x = self.asteroids[i].center.x 
+                            swap1y = self.asteroids[i].center.y 
+                            
+                            #this is to set the asteroid a set space away from the bigger asteroid
+                            if swap1x > 0:
+                                swap1x += 60
                                 
+                            else:
+                                swap1x -= 60
+                            
+                            if swap1y > 0:
+                                swap1x += 60
+                                
+                            else:
+                                swap1y -= 60
+        
+                            self.asteroids[j].center.x = swap1x 
+                            self.asteroids[j].center.y = swap1y 
+                            self.asteroids[j].bounce_horizontal()
+                            
+                            
+                            self.asteroids[i].bounce_vertical()
+                            
+                            
+                        
+                        elif self.asteroids[i].radius < self.asteroids[j].radius:
+                           
+                            swap2x = self.asteroids[j].center.x 
+                            swap2y = self.asteroids[j].center.y 
+                            
+
+                            if swap2x > 0:
+                                swap2x += 60
+                                
+                            else:
+                                swap2x -= 60
+                            
+                            if swap2y > 0:
+                                swap2x += 60
+                                
+                            else:
+                                swap2y -= 60
+        
+                            
+                            self.asteroids[i].center.x = swap2x 
+                            self.asteroids[i].center.y = swap2y 
+                            self.asteroids[i].bounce_horizontal()
+                            
+                            self.asteroids[j].bounce_vertical()
+                              
+                              
+                              
                                 
 
     def check_ship_to_asteriod_collisions(self):
@@ -181,6 +244,8 @@ class GameInplay(arcade.View):
                             self.score += asteroid.penalty #add the penalty score
                             self.asteroids += asteroid.hit() #add the new asteroids to current list
                             arcade.play_sound(self.hit_sound) #play the sound
+                            
+        
         
         for asteroid in self.asteroids:
             # Make sure they are both alive before checking for a collision
@@ -197,6 +262,8 @@ class GameInplay(arcade.View):
                             self.asteroids += asteroid.hit() #add the new asteroids to current list
                             arcade.play_sound(self.hit_sound) #play the sound
 
+
+
     def check_bullet_to_asteriod_collisions(self):
         for bullet in self.bullets:
             for asteroid in self.asteroids:
@@ -209,11 +276,31 @@ class GameInplay(arcade.View):
                                 abs(bullet.center.y - asteroid.center.y) < too_close):
                         # its a hit!
                         bullet.alive = False #kill the bullet
-                        asteroid.asteroid_life_points -=1
-                        if asteroid.asteroid_life_points == 0:
+                        
+                        
+                        
+                        #### lowers down life points and slows the speed of the asteroid 
+                        asteroid.life_points -=1
+                        if asteroid.velocity.dx >=0:
+                            asteroid.velocity.dx -= .2
+                        
+                        else: 
+                            asteroid.velocity.dx +.2
+                            
+                            
+                        if asteroid.velocity.dy >= 0:
+                            asteroid.velocity.dy -= .2
+                            
+                        else:  
+                            asteroid.velocity.dy += .2
+                        
+                        #When the asteroid's life points reach zero...
+                        if asteroid.life_points == 0:
                             asteroid.alive = False #kill the asteroid
                             self.asteroids += asteroid.hit() #add the new asteroids to current list
                             arcade.play_sound(self.hit_sound) #play sound
+                            
+                            
         
         for bullet1 in self.bullets1:
             for asteroid in self.asteroids:
@@ -226,11 +313,31 @@ class GameInplay(arcade.View):
                                 abs(bullet1.center.y - asteroid.center.y) < too_close):
                         # its a hit!
                         bullet1.alive = False #kill the bullet
-                        asteroid.asteroid_life_points -=1
-                        if asteroid.asteroid_life_points == 0:
+                        asteroid.life_points -=1
+                        
+                        #if the asteroid is hit and is going right...slow it down by making it go left 
+                        if asteroid.velocity.dx >=0:
+                            asteroid.velocity.dx -= .2
+                        
+                        else: 
+                            asteroid.velocity.dx +.2
+                            
+
+                        #if aster is hit and is going up...slow it down and make it go down
+                        if asteroid.velocity.dy >= 0:
+                            asteroid.velocity.dy -= .2
+                            
+                        else:  
+                            asteroid.velocity.dy += .2
+                         
+                            
+                        if asteroid.life_points == 0:
                             asteroid.alive = False #kill the asteroid
                             self.asteroids += asteroid.hit() #add the new asteroids to current list
                             arcade.play_sound(self.hit_sound) #play sound
+                            
+                            
+                            
 
     def check_bullet_to_ship_collisions(self):
         for bullet in self.bullets:

@@ -29,10 +29,12 @@ class MediumAsteroids(Asteroids):
         particles = [SmallAsteroids(self.center), SmallAsteroids(self.center)]
         
         #get the speed of this asteroid and pass it to the new asteriods and give then direction + speed
+        particles[0].center.y += 25
         particles[0].velocity.dx = self.velocity.dx + 1.5
         particles[0].velocity.dy = self.velocity.dy + 1.5
-
+        particles[1].center.y -= 25
         particles[1].velocity.dx = self.velocity.dx + 1.5 * -1
         particles[1].velocity.dy = self.velocity.dy + 1.5 * -1
+
 
         return particles

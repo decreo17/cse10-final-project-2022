@@ -40,13 +40,26 @@ class LargeAsteroids(Asteroids):
         particles = [MediumAsteroids(self.center), MediumAsteroids(self.center), SmallAsteroids(self.center)]
         
         #get the speed of this asteroid and pass it to the new asteriods and give them direction + speed
+        # particles[0].velocity.dx = self.velocity.dx
+        # particles[0].velocity.dy = self.velocity.dy + 2 #go up
+
+        # particles[1].velocity.dx = self.velocity.dx
+        # particles[1].velocity.dy = self.velocity.dy + 2 * -1 #go down
+
+        # particles[2].velocity.dx = self.velocity.dx + 5 #to the right
+        # particles[2].velocity.dy = self.velocity.dy
+        
+        particles[0].center.y += 50
         particles[0].velocity.dx = self.velocity.dx
         particles[0].velocity.dy = self.velocity.dy + 2 #go up
 
+        particles[1].center.y -= 50
         particles[1].velocity.dx = self.velocity.dx
         particles[1].velocity.dy = self.velocity.dy + 2 * -1 #go down
 
+        particles[2].center.y += 25
         particles[2].velocity.dx = self.velocity.dx + 5 #to the right
         particles[2].velocity.dy = self.velocity.dy
+
 
         return particles

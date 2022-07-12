@@ -9,6 +9,7 @@ class Asteroids(FlyingObject, ABC):
         super().__init__()
         self.rotation = 0.00 #spin
         self.penalty = 0 #this will be added to the score when the asteroid hit the ship
+        self.life_points = 3
 
     def advance(self):
         """
