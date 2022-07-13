@@ -36,5 +36,4 @@ class MediumAsteroids(Asteroids):
         particles[1].velocity.dx = self.velocity.dx + 1.5 * -1
         particles[1].velocity.dy = self.velocity.dy + 1.5 * -1
 
-
         return particles

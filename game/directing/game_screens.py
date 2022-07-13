@@ -8,6 +8,7 @@ from game.casting.ship_1 import Ship1
 from game.casting.bullet import Bullet
 from game.services.ship_keys import ShipKeys
 from game.services.ship1_keys import Ship1Keys
+from game.shared.bounce import Bounce
 
 class GameInplay(arcade.View):
     """
@@ -46,8 +47,6 @@ class GameInplay(arcade.View):
             # asteroid = LargeAsteroids()
             self.asteroids.append(asteroid)    
    
-    
-
         # my add on: Load sounds. Sounds from kenney.nl
         self.fire_sound = arcade.sound.load_sound(":resources:sounds/laser1.wav") 
         self.hit_sound = arcade.sound.load_sound(":resources:sounds/explosion1.wav")
@@ -57,7 +56,6 @@ class GameInplay(arcade.View):
         Called automatically by the arcade framework.
         Handles the responsibility of drawing all elements.
         """
-
         # clear the screen to begin drawing
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
@@ -103,8 +101,6 @@ class GameInplay(arcade.View):
             view.score = self.score #copy the score to the gameoverclass
             view.asteroids = self.asteroids #copy the asteroids to the gameoverclass
             self.window.show_view(view) #show the gameoverview
-            #self.ship.alive = False #hide the ship
-            #self.ship1.alive = False #hide the ship
   
     def update(self, delta_time):
         """
@@ -159,76 +155,10 @@ class GameInplay(arcade.View):
                     y2 = self.asteroids[j].center.y
                     distance = ((x2 - x1)**2 + (y2 - y1)**2) **.5
                     
-                    
                     if distance < (too_close ) :
-                        if self.asteroids[i].radius == self.asteroids[j].radius:
-                           
-                            swap1x = self.asteroids[i].center.x 
-                            swap1y = self.asteroids[i].center.y 
-                            
-                            self.asteroids[i].center.x = self.asteroids[j].center.x 
-                            self.asteroids[i].center.y = self.asteroids[j].center.y 
-                           
-                            self.asteroids[j].center.x = swap1x 
-                            self.asteroids[j].center.y = swap1y 
-                            
-                            
-                        elif self.asteroids[i].radius > self.asteroids[j].radius:
-                            
-                            swap1x = self.asteroids[i].center.x 
-                            swap1y = self.asteroids[i].center.y 
-                            
-                            #this is to set the asteroid a set space away from the bigger asteroid
-                            if swap1x > 0:
-                                swap1x += 60
-                                
-                            else:
-                                swap1x -= 60
-                            
-                            if swap1y > 0:
-                                swap1x += 60
-                                
-                            else:
-                                swap1y -= 60
-        
-                            self.asteroids[j].center.x = swap1x 
-                            self.asteroids[j].center.y = swap1y 
-                            self.asteroids[j].bounce_horizontal()
-                            
-                            
-                            self.asteroids[i].bounce_vertical()
-                            
-                            
-                        
-                        elif self.asteroids[i].radius < self.asteroids[j].radius:
-                           
-                            swap2x = self.asteroids[j].center.x 
-                            swap2y = self.asteroids[j].center.y 
-                            
-
-                            if swap2x > 0:
-                                swap2x += 60
-                                
-                            else:
-                                swap2x -= 60
-                            
-                            if swap2y > 0:
-                                swap2x += 60
-                                
-                            else:
-                                swap2y -= 60
-        
-                            
-                            self.asteroids[i].center.x = swap2x 
-                            self.asteroids[i].center.y = swap2y 
-                            self.asteroids[i].bounce_horizontal()
-                            
-                            self.asteroids[j].bounce_vertical()
+                        bounce = Bounce(self.asteroids[i],self.asteroids[j])
+                        bounce.collide()  
                               
-                              
-                              
-                                
-
     def check_ship_to_asteriod_collisions(self):
         for asteroid in self.asteroids:
             # Make sure they are both alive before checking for a collision
@@ -238,15 +168,14 @@ class GameInplay(arcade.View):
                     if (abs(self.ship.center.x - asteroid.center.x) < too_close and
                                 abs(self.ship.center.y - asteroid.center.y) < too_close):
                         
-                            asteroid.alive = False
+                            asteroid.alive = True
                             self.ship.life -= 1
                             self.ship.alpha = 1
-                            self.score += asteroid.penalty #add the penalty score
-                            self.asteroids += asteroid.hit() #add the new asteroids to current list
+                            #self.asteroids += asteroid.hit() #add the new asteroids to current list
                             arcade.play_sound(self.hit_sound) #play the sound
+                            bounce = Bounce(asteroid, self.ship)
+                            bounce.collide()
                             
-        
-        
         for asteroid in self.asteroids:
             # Make sure they are both alive before checking for a collision
             if self.ship1.alive and asteroid.alive:
@@ -255,15 +184,14 @@ class GameInplay(arcade.View):
                     if (abs(self.ship1.center.x - asteroid.center.x) < too_close and
                                 abs(self.ship1.center.y - asteroid.center.y) < too_close):
                         
-                            asteroid.alive = False
+                            asteroid.alive = True
                             self.ship1.life -= 1
                             self.ship1.alpha = 1
-                            self.score += asteroid.penalty #add the penalty score
-                            self.asteroids += asteroid.hit() #add the new asteroids to current list
+                            #self.asteroids += asteroid.hit() #add the new asteroids to current list
                             arcade.play_sound(self.hit_sound) #play the sound
-
-
-
+                            bounce1 = Bounce(asteroid, self.ship1,)
+                            bounce1.collide()
+                            
     def check_bullet_to_asteriod_collisions(self):
         for bullet in self.bullets:
             for asteroid in self.asteroids:
@@ -277,16 +205,13 @@ class GameInplay(arcade.View):
                         # its a hit!
                         bullet.alive = False #kill the bullet
                         
-                        
-                        
                         #### lowers down life points and slows the speed of the asteroid 
                         asteroid.life_points -=1
                         if asteroid.velocity.dx >=0:
                             asteroid.velocity.dx -= .2
-                        
+                    
                         else: 
                             asteroid.velocity.dx +.2
-                            
                             
                         if asteroid.velocity.dy >= 0:
                             asteroid.velocity.dy -= .2
@@ -300,8 +225,6 @@ class GameInplay(arcade.View):
                             self.asteroids += asteroid.hit() #add the new asteroids to current list
                             arcade.play_sound(self.hit_sound) #play sound
                             
-                            
-        
         for bullet1 in self.bullets1:
             for asteroid in self.asteroids:
 
@@ -322,7 +245,6 @@ class GameInplay(arcade.View):
                         else: 
                             asteroid.velocity.dx +.2
                             
-
                         #if aster is hit and is going up...slow it down and make it go down
                         if asteroid.velocity.dy >= 0:
                             asteroid.velocity.dy -= .2
@@ -330,15 +252,11 @@ class GameInplay(arcade.View):
                         else:  
                             asteroid.velocity.dy += .2
                          
-                            
                         if asteroid.life_points == 0:
                             asteroid.alive = False #kill the asteroid
                             self.asteroids += asteroid.hit() #add the new asteroids to current list
                             arcade.play_sound(self.hit_sound) #play sound
                             
-                            
-                            
-
     def check_bullet_to_ship_collisions(self):
         for bullet in self.bullets:
             # Make sure they are both alive before checking for a collision
@@ -487,7 +405,7 @@ class GameInplay(arcade.View):
         """
         Draw the mini ships that represent the lives of the ship
         """
-        x = SCREEN_WIDTH - 70 #position it to the left
+        x = SCREEN_WIDTH - 10 #position it to the left
         y = SCREEN_HEIGHT - 30 #position this to the top - 30
         for i in range(self.ship1.life):
             img = SHIP_IMAGE
@@ -498,7 +416,7 @@ class GameInplay(arcade.View):
             alpha = 255
             arcade.draw_texture_rectangle(x, y, width, 
                     height, texture, angle, alpha)
-            x += width #add the new mini ship beside the last ship created        
+            x -= width #add the new mini ship beside the last ship created        
 
 class GameOver(arcade.View):
     """ View to show when game is over """

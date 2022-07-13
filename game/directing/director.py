@@ -2,7 +2,6 @@ from game.directing.game_screens import GameInplay
 from constants import *
 import arcade
 
-
 class Director():
 
     def __init__(self, window):
