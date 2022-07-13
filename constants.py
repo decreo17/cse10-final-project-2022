@@ -17,6 +17,8 @@ BG_IMAGE2 = "./assets/images/background_images/wp8368533.jpg"
 BG_IMAGE3 = "./assets/images/background_images/51oGSP+OBnL._AC_.jpg"
 BG_IMAGE4 = "./assets/images/background_images/bg_image4.jpg"
 
+START_UP_IMAGE = "./assets/images/background_images/instructions.jpg"
+
 BG_IMAGES = [BG_IMAGE, BG_IMAGE1, BG_IMAGE2, BG_IMAGE3, BG_IMAGE4]
 
 background = random.choice(BG_IMAGES)
