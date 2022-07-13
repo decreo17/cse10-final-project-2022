@@ -15,7 +15,7 @@ BG_IMAGE = "./assets/background_images/bgu.jpg"
 BG_IMAGE1 = "./assets/background_images/space1.jpg"
 BG_IMAGE2 = "./assets/background_images/space2.jpg"
 BG_IMAGE3 = "./assets/background_images/space3.jpg"
-BG_IMAGE4 = "./assets/background_images/space4jpg"
+BG_IMAGE4 = "./assets/background_images/space4.jpg"
 
 START_UP_IMAGE = "./assets/background_images/instructions.jpg"
 
