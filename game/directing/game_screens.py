@@ -388,7 +388,7 @@ class GameInplay(arcade.View):
         """
         Draw the mini ships that represent the lives of the ship
         """
-        x = 10 #position it to the left
+        x = 25 #position it to the left
         y = SCREEN_HEIGHT - 30 #position this to the top - 30
         for i in range(self.ship.life):
             img = SHIP_IMAGE
@@ -405,7 +405,7 @@ class GameInplay(arcade.View):
         """
         Draw the mini ships that represent the lives of the ship
         """
-        x = SCREEN_WIDTH - 10 #position it to the left
+        x = SCREEN_WIDTH - 25 #position it to the left
         y = SCREEN_HEIGHT - 30 #position this to the top - 30
         for i in range(self.ship1.life):
             img = SHIP_IMAGE

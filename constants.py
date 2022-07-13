@@ -46,9 +46,9 @@ BULLET_IMAGE = "assets/lasers/laserRed01.jpg"
 SHIP_TURN_AMOUNT = 3
 SHIP_THRUST_AMOUNT = 0.25
 SHIP_RADIUS = 20
-SHIP_IMAGE = "./assets/spaceships/playerShip1_orange.png"
+SHIP_IMAGE = "assets/images/rebel_alliance_logo.png"
 SHIP_1_IMAGE = "assets/spaceships/milleniumfalcon.png"
-SHIP_2_IMAGE = "assets/spaceships/y-wing.png"
+SHIP_2_IMAGE = "assets/spaceships/y_wing1.png"
 
 # ROCKS
 INITIAL_ROCK_COUNT = 5
