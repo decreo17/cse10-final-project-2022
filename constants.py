@@ -22,8 +22,8 @@ BG_IMAGES = [BG_IMAGE, BG_IMAGE1, BG_IMAGE2, BG_IMAGE3, BG_IMAGE4]
 background = random.choice(BG_IMAGES)
 
 #Game Over
-GAME_OVER_IMAGE = "./assets/images/game_over.png"
-WIN_IMAGE = "./assets/images/congrats.png"
+GAME_OVER_IMAGE = "./assets/background_images/game_over.png"
+WIN_IMAGE = "./assets/background_images/congrats.png"
 LEFT_BOARDER = 0
 RIGHT_BOARDER = SCREEN_WIDTH
 
