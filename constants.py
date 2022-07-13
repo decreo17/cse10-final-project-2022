@@ -54,14 +54,14 @@ INITIAL_ROCK_COUNT = 5
 BIG_ROCK_SPIN = 0
 BIG_ROCK_SPEED = 1.5
 BIG_ROCK_RADIUS = 15
-BIG_ROCK_IMAGE = "assets/images/asteroid (2).png"
+BIG_ROCK_IMAGE = "assets/asteroids/asteroid (2).png"
 
 MEDIUM_ROCK_SPIN = -2
 MEDIUM_ROCK_RADIUS = 5
-MEDIUM_ROCK_IAMGE = "assets/images/asteroid_medium.png"
+MEDIUM_ROCK_IAMGE = "assets/asteroids/asteroid_medium.png"
 
 SMALL_ROCK_SPIN = 5
 SMALL_ROCK_RADIUS = 2
-SMALL_ROCK_IMAGE = "assets/images/asteroid (1).png"
+SMALL_ROCK_IMAGE = "assets/asteroids/asteroid (1).png"
 
 # DIALOGS
