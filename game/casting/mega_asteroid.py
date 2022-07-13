@@ -32,7 +32,7 @@ class MegaAsteroid(Asteroids):
         split the asteroid
         """
         #create new asteroid from the current posstion of this asteroid
-        particles = [LargeAsteroids(self.center), LargeAsteroids(self.center), LargeAsteroids(self.center), LargeAsteroids(self.center)]#,LargeAsteroids(self.center),LargeAsteroids(self.center)]#,MediumAsteroids(self.center), MediumAsteroids(self.center), SmallAsteroids(self.center)]
+        particles = [MediumAsteroids(self.center),MediumAsteroids(self.center),MediumAsteroids(self.center),MediumAsteroids(self.center)]#,LargeAsteroids(self.center),LargeAsteroids(self.center)]#,MediumAsteroids(self.center), MediumAsteroids(self.center), SmallAsteroids(self.center)]
         
         #get the speed of this asteroid and pass it to the new asteriods and give them direction + speed + offset position so they don't start in the same spot
         
