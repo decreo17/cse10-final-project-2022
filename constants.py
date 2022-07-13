@@ -44,8 +44,8 @@ BULLET_IMAGE = "./assets/images/laserBlue01.png"
 SHIP_TURN_AMOUNT = 3
 SHIP_THRUST_AMOUNT = 0.25
 SHIP_RADIUS = 20
-SHIP_IMAGE = "./assets/images/playerShip1_orange.png"
-SHIP_1_IMAGE = "./assets/images/playerShip1_orange.png"
+SHIP_IMAGE = "./assets/images/spaceships/playerShip1_orange.png"
+SHIP_1_IMAGE = "./assets/images/spaceships/playerShip1_orange.png"
 SHIP_2 = "./assets/images/favpng_starship-enterprise-uss-enterprise-ncc-1701-star-trek_25.png"
 
 # ROCKS
