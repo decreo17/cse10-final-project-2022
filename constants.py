@@ -51,7 +51,7 @@ SHIP_2 = "./assets/images/favpng_starship-enterprise-uss-enterprise-ncc-1701-sta
 # ROCKS
 INITIAL_ROCK_COUNT = 5
 
-BIG_ROCK_SPIN = 1
+BIG_ROCK_SPIN = 0
 BIG_ROCK_SPEED = 1.5
 BIG_ROCK_RADIUS = 15
 BIG_ROCK_IMAGE = "assets/images/asteroid (2).png"
@@ -65,6 +65,3 @@ SMALL_ROCK_RADIUS = 2
 SMALL_ROCK_IMAGE = "assets/images/asteroid (1).png"
 
 # DIALOGS
-
-#Alien
-Alien_IMG = "./assets/images/__alien_enemy_4_purple_green_flying_000.png"
