@@ -22,6 +22,7 @@ Python 3.8.0
 ## Authors
 
 | Nikkolet Ashby | (ash22001@byui.edu) |
+| --- | | --- |
 | William Cameron | (wecameron93@gmail.com) |
 | Ramón Felipe Castano Salgado | (monchouam@gmail.com) |
 | Dhener Trinidad | (tri20006@byui.edu) | 
