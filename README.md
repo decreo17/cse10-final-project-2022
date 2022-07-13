@@ -14,12 +14,13 @@ cse210-final-project-2022/main.py You can also run the program from an IDE like 
 The project files and folders are organized as follows:
 
 ```cse210-10-final-project-2022 (project root folder)
-├── build                   # Compiled files (alternatively `dist`)
-├── docs                    # Documentation files (alternatively `doc`)
-├── src                     # Source files (alternatively `lib` or `app`)
-├── test                    # Automated tests (alternatively `spec` or `tests`)
-├── tools                   # Tools and utilities
-├── LICENSE
+├── _pycache_
+    └── constants.cpython-310
+├── assets
+├── game
+├── .gitignore
+├── _main_
+├── constants.py
 └── README.md
 ```
 
