@@ -4,7 +4,6 @@ from game.casting.asteroids import Asteroids
 from game.casting.large_asteroids import LargeAsteroids
 from game.casting.medium_asteroids import MediumAsteroids
 from game.casting.small_asteroids import SmallAsteroids
-import random
 
 class MegaAsteroid(Asteroids):
     def __init__(self):
@@ -25,10 +24,8 @@ class MegaAsteroid(Asteroids):
         self.width = self.texture.width *5
         self.height = self.texture.height *5
         
-       
         self.alpha = 255
         super().draw()
-
 
     def hit(self):
         """
@@ -43,29 +40,17 @@ class MegaAsteroid(Asteroids):
         particles[0].velocity.dx = self.velocity.dx
         particles[0].velocity.dy = self.velocity.dy + 1 #go up
         #particles[0].center.y -= 50
-      
 
         particles[1].center.y -= 100
         particles[1].velocity.dx = self.velocity.dx
         particles[1].velocity.dy = self.velocity.dy + 2 * -1 #go down
-        #particles[1].center.y += 50
     
-
         particles[2].center.x += 100
         particles[2].velocity.dx = self.velocity.dx + 1 #to the right
         particles[2].velocity.dy = self.velocity.dy + .5
-        #particles[2].center.x -= 50
         
         particles[3].center.x -= 100
         particles[3].velocity.dx = self.velocity.dx  - 1.5 #to the LEFT
         particles[3].velocity.dy = self.velocity.dy + 1 #GO UP
-        #particles[3].center.x += 50
-        
-        # particles[4].velocity.dx = self.velocity.dx - 2 #to the right
-        # particles[4].velocity.dy = self.velocity.dy - 1 #GO DOWN
-        
-        # particles[5].velocity.dx = self.velocity.dx + (random.randint(-2,2)) #to the right
-        # particles[5].velocity.dy = self.velocity.dy + (random.randint(-2,2)) #GO DOWN
-
-
+       
         return particles

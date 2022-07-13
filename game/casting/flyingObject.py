@@ -3,7 +3,6 @@ from abc import ABC, abstractmethod
 from game.shared.point import Point
 from game.shared.velocity import Velocity
 from constants import *
-import os
 
 class FlyingObject(ABC):
     """
@@ -49,3 +48,38 @@ class FlyingObject(ABC):
             self.center.y = 0
         elif self.center.y < 0:
             self.center.y = height
+    
+    def bounce_horizontal(self):
+        """
+        The objects will bounce when they hit each other
+        """
+        self.velocity.dy += -2
+        self.velocity.dx *= -1 #inverse the movement of the ball
+        
+        if self.velocity.dx < 0:
+            
+            #self.velocity.dy += -2
+            self.velocity.dy = 0
+            self.velocity.dy += -2
+            
+        else:
+            
+            #self.velocity.dy += 2
+            self.velocity.dy = 0
+            self.velocity.dy += 2
+            
+    def bounce_vertical(self):
+        """
+        The objects will bounce when they hit each other
+        """
+        
+        self.velocity.dx += 2
+        self.velocity.dy *= -1 #inverse the movement of the ball
+        if self.velocity.dy < 0:
+            #self.velocity.dx += -2
+            self.velocity.dx = 0
+            self.velocity.dx += -2
+        else:
+            #self.velocity.dx += 2
+            self.velocity.dx = 0
+            self.velocity.dx += 2
