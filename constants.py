@@ -38,7 +38,7 @@ MAXIMUM_LIVES = DEFAULT_LIVES
 BULLET_RADIUS = 20
 BULLET_SPEED = 10
 BULLET_LIFE = 60
-BULLET_IMAGE = "./assets/images/laserBlue01.png"
+BULLET_IMAGE = "assets/lasers/laserRed01.jpg"
 
 
 
@@ -47,8 +47,8 @@ SHIP_TURN_AMOUNT = 3
 SHIP_THRUST_AMOUNT = 0.25
 SHIP_RADIUS = 20
 SHIP_IMAGE = "./assets/spaceships/playerShip1_orange.png"
-SHIP_1_IMAGE = "./assets/spaceships/playerShip1_orange.png"
-SHIP_2 = "./assets/images/favpng_starship-enterprise-uss-enterprise-ncc-1701-star-trek_25.png"
+SHIP_1_IMAGE = "assets/spaceships/milleniumfalcon.png"
+SHIP_2_IMAGE = "assets/spaceships/y-wing.png"
 
 # ROCKS
 INITIAL_ROCK_COUNT = 5
