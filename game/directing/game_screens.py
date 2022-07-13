@@ -476,3 +476,46 @@ class GameOver(arcade.View):
         start_x = CENTER_X
         start_y = CENTER_Y
         arcade.draw_text(lapse, start_x=start_x, start_y=start_y, font_size= 20, color=arcade.color.WHITE, anchor_x="center")
+
+
+
+
+class StartUpView(arcade.View):
+    """ View to show when game starts, showing basic instructions """
+    def __init__(self):
+
+        super().__init__()
+
+        # Reset the viewport, necessary if we have a scrolling game and we need
+        # to reset the viewport back to the start so we can see what we draw.
+        arcade.set_viewport(0, SCREEN_WIDTH - 1, 0, SCREEN_HEIGHT - 1)
+
+        arcade.set_background_color(arcade.color.SMOKY_BLACK)
+
+
+    def on_draw(self):
+        """ Draw this view """
+        arcade.start_render()       
+        self.draw_game_start_up()
+
+
+    def on_key_press(self, key: int, modifiers: int):
+        """
+        If the user presses the space bar, re-start the game.
+        """
+        if key == arcade.key.SPACE:
+            game_view = GameInplay()
+            self.window.show_view(game_view)
+
+    def on_mouse_press(self, _x, _y, _button, _modifiers):
+        """ If the user presses the mouse button, re-start the game. """
+        game_view = GameInplay()
+        self.window.show_view(game_view)
+
+
+    def draw_game_start_up(self):
+        """
+        Show the instructions 
+        """
+        self.background = arcade.load_texture(START_UP_IMAGE)
+        arcade.draw_lrwh_rectangle_textured(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
