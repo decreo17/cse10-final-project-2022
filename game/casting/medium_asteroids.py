@@ -16,8 +16,8 @@ class MediumAsteroids(Asteroids):
     def draw(self):    
         self.img = MEDIUM_ROCK_IAMGE
         self.texture = arcade.load_texture(self.img)
-        self.width = self.texture.width
-        self.height = self.texture.height
+        self.width = self.texture.width / 2
+        self.height = self.texture.height /2
         self.alpha = 255
         super().draw()
 
