@@ -14,7 +14,7 @@ class MegaAsteroid(Asteroids):
         self.center.y = (SCREEN_HEIGHT/2)
        
         #speed
-        self.rotation = BIG_ROCK_SPIN
+        #self.rotation = BIG_ROCK_SPIN
         self.radius = BIG_ROCK_RADIUS * 15
         # self.penalty = 10
         self.penalty = 6
