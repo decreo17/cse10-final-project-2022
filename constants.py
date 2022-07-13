@@ -64,6 +64,6 @@ MEDIUM_ROCK_IAMGE = "assets/enemies/star_destroyer.png"
 
 SMALL_ROCK_SPIN = 5
 SMALL_ROCK_RADIUS = 2
-SMALL_ROCK_IMAGE = "assets/asteroids/asteroid (1).png"
+SMALL_ROCK_IMAGE = "assets/enemies/tie_fighter.png"
 
 # DIALOGS
