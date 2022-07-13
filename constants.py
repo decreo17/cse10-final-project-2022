@@ -58,8 +58,8 @@ BIG_ROCK_SPEED = 1.5
 BIG_ROCK_RADIUS = 15
 BIG_ROCK_IMAGE = "assets/enemies/deathstar.png"
 
-MEDIUM_ROCK_SPIN = -2
-MEDIUM_ROCK_RADIUS = 5
+MEDIUM_ROCK_SPIN = 0
+MEDIUM_ROCK_RADIUS = 2
 MEDIUM_ROCK_IAMGE = "assets/enemies/star_destroyer.png"
 
 SMALL_ROCK_SPIN = 5
