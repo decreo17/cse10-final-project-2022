@@ -100,6 +100,8 @@ class GameInplay(arcade.View):
             view = GameOver() #create and instance of gameover class
             view.score = self.score #copy the score to the gameoverclass
             view.asteroids = self.asteroids #copy the asteroids to the gameoverclass
+            view.ship_lives = self.ship.life
+            view.ship1_lives = self.ship1.life
             self.window.show_view(view) #show the gameoverview
   
     def update(self, delta_time):
@@ -435,11 +437,12 @@ class GameOver(arcade.View):
         
     def on_draw(self):
         """ Draw this view """
-        arcade.start_render()
-        if len(self.asteroids) > 0:
-            self.draw_game_over()
-        else:
-            self.draw_congratulations()
+        self.draw_congratulations()
+        # arcade.start_render()
+        # if len(self.asteroids) > 0:
+        #     self.draw_game_over()
+        # else:
+        #     self.draw_congratulations()
 
     def on_key_press(self, key: int, modifiers: int):
         """
@@ -461,11 +464,26 @@ class GameOver(arcade.View):
         """
         self.background = arcade.load_texture(WIN_IMAGE)
         arcade.draw_lrwh_rectangle_textured(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
-        lapse = f"Time Lapse: {self.score:.2f}"
         start_x = CENTER_X
         start_y = CENTER_Y
-        arcade.draw_text(lapse, start_x=start_x, start_y=start_y, font_size= 20, color=arcade.color.WHITE, anchor_x="center")  
+        play_again_message = 'Hit the "Space Bar" or "click" to play again!'
         
+        if self.ship1_lives == 0:
+            message = 'PLAYER 1 WINS !!!!!!!!!!'
+            lapse = f"Player 2 survived for: {self.score:.2f} seconds... pity"
+            arcade.draw_text(message, start_x=start_x, start_y=start_y, font_size= 20, color=arcade.color.WHITE, anchor_x="center")  
+            arcade.draw_text(lapse, start_x=start_x, start_y=(start_y - 25), font_size= 20, color=arcade.color.WHITE, anchor_x="center") 
+            arcade.draw_text(play_again_message, start_x=start_x, start_y=(start_y - 50), font_size= 20, color=arcade.color.WHITE, anchor_x="center") 
+            
+        elif self.ship_lives == 0:
+            message = 'PLAYER 2 WINS!!!!!!!!'
+            lapse = f"Player 1 survived for: {self.score:.2f} seconds... pity"
+            arcade.draw_text(message, start_x=start_x, start_y=start_y, font_size= 20, color=arcade.color.WHITE, anchor_x="center")  
+            arcade.draw_text(lapse, start_x=start_x, start_y=(start_y - 25), font_size= 20, color=arcade.color.WHITE, anchor_x="center") 
+            arcade.draw_text(play_again_message, start_x=start_x, start_y=(start_y - 50), font_size= 20, color=arcade.color.WHITE, anchor_x="center")
+             
+            
+            
     def draw_game_over(self):
         """
         Print the message "Game over" and show the score(time lapse) 

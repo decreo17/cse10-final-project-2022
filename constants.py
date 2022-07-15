@@ -22,10 +22,12 @@ START_UP_IMAGE = "./assets/background_images/instructions.jpg"
 BG_IMAGES = [BG_IMAGE, BG_IMAGE1, BG_IMAGE2, BG_IMAGE3, BG_IMAGE4]
 
 background = random.choice(BG_IMAGES)
+game_over_page = random.choice(BG_IMAGES)
+win_page = random.choice(BG_IMAGES)
 
 #Game Over
-GAME_OVER_IMAGE = "./assets/background_images/game_over.png"
-WIN_IMAGE = "./assets/background_images/congrats.png"
+GAME_OVER_IMAGE = game_over_page #"./assets/background_images/game_over.png"
+WIN_IMAGE = win_page #"./assets/background_images/congrats.png"
 LEFT_BOARDER = 0
 RIGHT_BOARDER = SCREEN_WIDTH
 
