@@ -47,7 +47,7 @@ BULLET_IMAGE = "assets/lasers/laserRed01.jpg"
 # SHIPS
 SHIP_TURN_AMOUNT = 3
 SHIP_THRUST_AMOUNT = 0.25
-SHIP_RADIUS = 20
+SHIP_RADIUS = 10
 SHIP_IMAGE = "assets/images/rebel_alliance_logo.png"
 SHIP_1_IMAGE = "assets/spaceships/milleniumfalcon.png"
 SHIP_2_IMAGE = "assets/spaceships/y_wing1.png"
@@ -64,8 +64,8 @@ MEDIUM_ROCK_SPIN = 0
 MEDIUM_ROCK_RADIUS = 2
 MEDIUM_ROCK_IAMGE = "assets/enemies/star_destroyer.png"
 
-SMALL_ROCK_SPIN = 5
-SMALL_ROCK_RADIUS = 2
+SMALL_ROCK_SPIN = 3
+SMALL_ROCK_RADIUS = 1
 SMALL_ROCK_IMAGE = "assets/enemies/tie_fighter.png"
 
 # DIALOGS
