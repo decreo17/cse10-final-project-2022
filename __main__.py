@@ -1,6 +1,4 @@
 import arcade
-from matplotlib.pyplot import title
-from pyray import set_window_icon
 from constants import *
 from game.directing.director import Director
 from pyglet.image import load as pyglet_load
